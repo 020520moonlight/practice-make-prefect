@@ -10,15 +10,13 @@ import p3examtest.Do.UserDo;
 import p3examtest.Model.User;
 import p3examtest.Service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class userControl {
 
     @Autowired(required = false)
     private UserService userService;
-    @GetMapping("login")
+    @GetMapping("index")
     public String login(Model model){
         return "login";
     }

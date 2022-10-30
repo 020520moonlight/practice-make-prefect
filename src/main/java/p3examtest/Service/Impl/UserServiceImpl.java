@@ -1,11 +1,13 @@
 package p3examtest.Service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import p3examtest.Dao.UserDao;
 import p3examtest.Do.UserDo;
 import p3examtest.Model.User;
 import p3examtest.Service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -38,15 +40,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkUser(String name, String password) {
+    public User checkUser(String name, String password) {
         if(name == null || !"".equals(name)){
-            return false;
+            return null;
         }
         UserDo userDo = userDao.findByUserName(name);
         if(userDo==null){
-            return false;
+            return null;
         }
-        return true;
+        return userDo.convertToModel(userDo);
     }
 
     private UserDo packageUserDo(String name,String password){

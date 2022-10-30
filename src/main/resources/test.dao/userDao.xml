@@ -30,9 +30,8 @@
     </update>
 
 
-
     <select id="findByUserName" resultMap="userResultMap">
-        select * from user where user=#{username} limit 1
+        select * from user where user=#{name}
     </select>
 
 

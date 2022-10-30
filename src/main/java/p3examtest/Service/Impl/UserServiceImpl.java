@@ -7,6 +7,7 @@ import p3examtest.Do.UserDo;
 import p3examtest.Model.User;
 import p3examtest.Service.UserService;
 
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkUser(String name, String password) {
-        if(name == null || !"".equals(name)){
+        if(name == null || "".equals(name)){
             return null;
         }
         UserDo userDo = userDao.findByUserName(name);
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
         }
         return userDo.convertToModel(userDo);
     }
+
 
     private UserDo packageUserDo(String name,String password){
         UserDo userDo = new UserDo();

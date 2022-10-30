@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/login.css" />
+    <title>注册页面</title>
+</head>
+<body>
+
+<div class="main">
+    <div class="title">
+        <span>新用户注册</span>
+    </div>
+
+    <div class="title-msg">
+        <span>请输入注册信息</span>
+    </div>
+
+    <form class="login-form" action="/register" method="post" name="user" >
+        <!--输入框-->
+        <div class="input-content">
+            <!--autoFocus-->
+            <div>
+                <input type="text" autocomplete="off"
+                       placeholder="用户名" name="name"  required/>
+            </div>
+
+            <div>
+                <input type="password"
+                       autocomplete="off" placeholder="登录密码" name="password" required maxlength="32"/>
+            </div>
+
+        </div>
+
+        <!--登入按钮-->
+        <div style="text-align: center">
+            <button type="submit" class="enter-btn" >注册</button>
+        </div>
+
+        <!--返回登录按钮-->
+        <div style="text-align: center">
+            <button onclick="window.location.href='index'" type="button" class="enter-btn" >返回登陆</button>
+        </div>
+
+        <div class="foor">
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

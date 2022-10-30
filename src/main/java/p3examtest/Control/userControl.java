@@ -1,4 +1,4 @@
-package p3examtest.control;
+package p3examtest.Control;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

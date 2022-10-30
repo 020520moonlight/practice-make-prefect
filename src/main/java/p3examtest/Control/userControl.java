@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class userControl {
 
-    @Autowired
+    @Autowired(required = false)
     private UserService userService;
     @GetMapping("login")
     public String login(Model model){

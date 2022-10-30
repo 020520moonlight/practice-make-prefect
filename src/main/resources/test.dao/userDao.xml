@@ -11,8 +11,6 @@
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
-
-
     <insert id="add" parameterType="p3examtest.Do.UserDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (user, password,gmt_created,gmt_modified)
         VALUES(#{username}, #{password},now(),now())

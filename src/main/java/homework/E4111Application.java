@@ -1,4 +1,4 @@
-package p3examtest;
+package homework;
 
 
 import org.springframework.boot.SpringApplication;

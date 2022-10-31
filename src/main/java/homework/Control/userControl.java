@@ -1,5 +1,7 @@
-package p3examtest.Control;
+package homework.Control;
 
+import homework.Dao.UserDao;
+import homework.Do.UserDo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +10,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import p3examtest.Model.User;
-import p3examtest.Service.UserService;
+import homework.Model.User;
+import homework.Service.UserService;
 
 
 @Controller
 public class userControl {
     //日志信息
     private static  final Logger log = LoggerFactory.getLogger(userControl.class);
-
-    @Autowired(required = false)
+    //@Autowired(required = false)
+    @Autowired
     private UserService userService;
+    /**
+     * 仅测试dao
+     */
+    @Autowired
+    private UserDao userDao;
 
     /**
      * 登陆页面
@@ -32,15 +39,15 @@ public class userControl {
 
     /**
      * 检验页面
-     * @param name
+     * @param username
      * @param password
      * @return
      */
     @PostMapping("authenticate")
-    public String authenticate(@RequestParam String name,
+    public String authenticate(@RequestParam String username,
                                @RequestParam String password){
 
-        User user = userService.checkUser(name,password);
+        User user = userService.checkUser(username,password);
 
         if (user != null && user.getPassword().equals(password)) {
             log.info("登陆成功");
@@ -66,14 +73,28 @@ public class userControl {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String name,
+    public String register(@RequestParam String username,
                            @RequestParam String password){
-        User user = userService.checkUser(name,password);
-        if (user == null || user.getUsername().equals(name)){
+        User user = userService.checkUser(username,password);
+        if (user != null && user.getUsername().equals(username)){
+            log.info("注册失败 --- 用户名已经存在");
             return "register";
         }
-        userService.addUser(name,password);
-        log.info("注册成功，加入用户");
+        User addUser = userService.addUser(username, password);
+        //test        UserDo userDo = new UserDo();
+        //        userDo.setUsername(username);
+        //        userDo.setPassword(password);
+        //        int testcount = userDao.add(userDo);
+        //        if (testcount ==0){
+        //            log.info("注册失败 --- dao出现问题");
+        //        }
+        //        log.error(testcount+"");
+        if (addUser == null){
+            log.info("注册失败 --- service出现问题");
+            return "register";
+        }else {
+            log.info("注册成功，加入用户");
+        }
         return "login";
     }
 

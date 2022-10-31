@@ -1,15 +1,13 @@
-package p3examtest.Model;
+package homework.Do;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.NullSerializer;
+import homework.Model.User;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class User implements Serializable {
-    private static final long SerializableUUID = 0L;
+public class UserDo {
     private long id;
+
+    private String username;
 
     public long getId() {
         return id;
@@ -51,14 +49,18 @@ public class User implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    private String username;
-
-    @JsonSerialize(using = NullSerializer.class)
     private String password;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime gmtCreated;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime gmtModified;
+
+    public User convertToModel(UserDo userDo){
+        User user = new User();
+        user.setUsername(userDo.getUsername());
+        user.setPassword(userDo.getPassword());
+        user.setGmtCreated(userDo.getGmtCreated());
+        user.setGmtModified(userDo.getGmtModified());
+        return user;
+    }
 }

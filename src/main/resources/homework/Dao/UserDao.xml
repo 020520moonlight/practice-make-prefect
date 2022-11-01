@@ -39,7 +39,7 @@
         insert into user (username,password,gmt_created,gmt_modified)
         values 
         <foreach collection="list" item="it" index="index" separator=",">
-            (#{username}, #{password}, now(), now())
+            (#{it.username}, #{it.password}, now(), now())
         </foreach>
     </insert>
 

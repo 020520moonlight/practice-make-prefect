@@ -4,10 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import homework.Dao.CommentDao;
 import homework.Do.CommentDo;
-import homework.Do.UserDo;
 import homework.Model.Paging;
 import homework.Model.Result;
-import homework.Service.CommentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class commentControl {
+    //提交
     @Autowired
     private CommentDao commentDao;
 

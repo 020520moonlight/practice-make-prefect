@@ -2,10 +2,11 @@ package homework.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Comment {
+public class Comment implements Serializable {
     private static final long SerializableUUID = 1L;
 
     private long id;

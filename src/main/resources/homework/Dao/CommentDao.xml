@@ -63,7 +63,7 @@
         on c.user_id=u.id where c.ref_id=#{refId} order by c.gmt_created desc
     </select>
 
-    <select id="findByUserId" resultMap="commentResultMap">
+    <select id="findByUserIds" resultMap="commentResultMap">
         select id,ref_id,user_id,parent_id,content,gmt_created,gmt_modified
         from `comment` where user_id in
         <foreach collection="userIds" item="item" index="index" separator="," open="(" close=")">

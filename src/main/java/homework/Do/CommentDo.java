@@ -1,5 +1,6 @@
 package homework.Do;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import homework.Model.Comment;
 import homework.Model.User;
 
@@ -8,9 +9,12 @@ import java.time.LocalDateTime;
 public class CommentDo {
 
     private long id;
+    @JsonProperty(value = "100")
     private String refId;
+    @JsonProperty(value = "100")
     private long userId;
     private long parentId;
+    @JsonProperty(value = "test")
     private String content;
     private LocalDateTime gmtCreated;
 

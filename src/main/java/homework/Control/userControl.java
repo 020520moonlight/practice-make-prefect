@@ -1,7 +1,11 @@
 package homework.Control;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import homework.Dao.UserDao;
 import homework.Do.UserDo;
+import homework.Model.Paging;
+import homework.Model.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +51,9 @@ public class userControl {
     public String authenticate(@RequestParam String username,
                                @RequestParam String password){
 
-        User user = userService.checkUser(username,password);
+        Result<User> user = userService.checkUser(username,password);
 
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.getData().getPassword().equals(password)) {
             log.info("登陆成功");
             return "loginSuccess";
         }
@@ -75,20 +79,12 @@ public class userControl {
     @PostMapping("/register")
     public String register(@RequestParam String username,
                            @RequestParam String password){
-        User user = userService.checkUser(username,password);
-        if (user != null && user.getUsername().equals(username)){
+        Result<User> user = userService.checkUser(username,password);
+        if (user != null && user.getData().getUsername().equals(username)){
             log.info("注册失败 --- 用户名已经存在");
             return "register";
         }
         User addUser = userService.addUser(username, password);
-        //test        UserDo userDo = new UserDo();
-        //        userDo.setUsername(username);
-        //        userDo.setPassword(password);
-        //        int testcount = userDao.add(userDo);
-        //        if (testcount ==0){
-        //            log.info("注册失败 --- dao出现问题");
-        //        }
-        //        log.error(testcount+"");
         if (addUser == null){
             log.info("注册失败 --- service出现问题");
             return "register";
@@ -96,6 +92,22 @@ public class userControl {
             log.info("注册成功，加入用户");
         }
         return "login";
+    }
+    @GetMapping("users")
+    public Result<Paging<UserDo>> getAll(@RequestParam(value = "pageNum" ,required = false) Integer pageNum,
+                                         @RequestParam(value = "pageSize",required = false) Integer pageSize){
+        Result<Paging<UserDo>> result = new Result<>();
+        if (pageNum == null){
+            pageNum=1;
+        }
+        if (pageNum == null){
+            pageSize = 15;
+        }
+        Page<UserDo> page  = PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> userDao.findAll());
+        result.setSuccess(true);
+        result.setData(new Paging<>(page.getPageSize(),page.getPageNum(),page.getTotal(),page.getPageNum(),page.getResult()));
+
+        return result;
     }
 
 }

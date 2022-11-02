@@ -1,14 +1,15 @@
 package homework.Do;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import homework.Model.User;
 
 import java.time.LocalDateTime;
 
 public class UserDo {
     private long id;
-
+    @JsonProperty(value = "test")
     private String username;
-
     public long getId() {
         return id;
     }
@@ -48,7 +49,7 @@ public class UserDo {
     public void setGmtModified(LocalDateTime gmtModified) {
         this.gmtModified = gmtModified;
     }
-
+    @JsonProperty(value = "test")
     private String password;
 
     private LocalDateTime gmtCreated;

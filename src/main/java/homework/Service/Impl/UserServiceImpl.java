@@ -1,5 +1,6 @@
 package homework.Service.Impl;
 
+import homework.Model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import homework.Dao.UserDao;
@@ -41,15 +42,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User checkUser(String username, String password) {
+    public Result<User> checkUser(String username, String password) {
+        Result<User> result = new Result<>();
         if(username == null || "".equals(username)){
-            return null;
+            result.setCode(600);
+            result.setMessage("用户名未输入");
+            return result;
         }
         UserDo userDo = userDao.findByUserName(username);
         if(userDo==null){
-            return null;
+            //登陆时，不能在数据库找到用户名
+            result.setCode(601);
+            result.setMessage("用户名未注册");
+            return result;
         }
-        return userDo.convertToModel(userDo);
+        result.setSuccess(true);
+        result.setCode(602);
+        result.setMessage("登录成功");
+        result.setData(userDo.convertToModel(userDo));
+        return result;
+    }
+
+    @Override
+    public boolean delUser(String username) {
+        UserDo userDo = userDao.findByUserName(username);
+        long id = userDo.getId();
+        int count = userDao.delete(id);
+        return count != 0 ;
     }
 
 

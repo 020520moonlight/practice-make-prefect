@@ -2,6 +2,7 @@ package homework.Dao;
 
 import homework.Do.CommentDo;
 import homework.Do.UserDo;
+import homework.Model.Comment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,20 +42,20 @@ public interface CommentDao {
      * @param userDos
      * @return
      */
-    int batchAdd(@Param("list") List<UserDo> userDos);
+    int batchAdd(@Param("list") List<CommentDo> userDos);
 
     /**
      * 根据评论id 返回评论模型列表
      * @param refId
      * @return
      */
-    List<CommentDo> findByRefId(@Param("refId") long refId);
+    List<Comment> findByRefId(@Param("refId") String refId);
 
     /**
      * 根据用户ids集合 返回评论模型列表
      * @param ids
      * @return
      */
-    List<CommentDo> findByUserId(@Param("userIds") List<Long> ids);
+    List<CommentDo> findByUserIds(@Param("userIds") List<Long> ids);
 
 }
